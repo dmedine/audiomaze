@@ -33,8 +33,9 @@ end
 if is_practice ~= 1
     condition = 1
     while(condition)
+        
         trial = whichTrialPrompt();
-        if trial >= 1 && trial <=3
+        if trial >= 1 && trial <=4
             trial_number = trial;
             condition = 0;
         else
@@ -42,9 +43,23 @@ if is_practice ~= 1
             condition = 1;
         end
     end
-
+    
+    condition = 1
+    while (condition)
+        str = bonusPrompt();
+        if str == 'y' | str == 'Y'
+            f = fopen('bonusFile', 'W');
+            fprintf(f, '%f', 0.0);
+            fclose(f);
+            condition = 0;
+        else
+            condition = 0;
+        end
+    end
+    
     disp(sprintf('Initiating maze %s for trial %d', which_maze, trial_number));
     simpleInitScrpt();
+    
 
 
     prompt = 'Maze initiated. Press any key to begin.\n';
@@ -52,9 +67,10 @@ if is_practice ~= 1
     if isempty(str)
         str = 'Y';
     end
-
+    
     infoData = [which_maze, num2str(random_seed), num2str(trial_number)];
     X.LSL.emitInfo(which_maze, random_seed, trial_number);
+    
     simpleTaskMainLoop;
 
 % special case of practice maze

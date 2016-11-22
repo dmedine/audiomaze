@@ -174,7 +174,7 @@ function simpleTaskCb
 
         % record the absolute value of velocity for later averaging
        if ~isempty(X.velocityFile)
-            fprintf(X.velocityFile, '%f', velocity(end));
+            fprintf(X.velocityFile, '%f, ', velocity(end));
        end
 
        lastVelocity = velocity;
